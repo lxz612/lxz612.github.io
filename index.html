@@ -45,6 +45,38 @@
 
 
 
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.loli.net/css?family=Noto Sans SC:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
 
 
 
@@ -316,17 +348,8 @@
 <li>细节设计<br>Android 设计了一个 Window 接口，定义了窗口需要具备的行为。且给出了一个具体的实现类 PhoneWindow。另外还设计了 WindowManager 的角色，来具体管理窗口，其中最重要就是对 View 树的管理。因此 WindowManager 继承了 ViewManager。ViewManager 很简单，只有三个方法，分别是对树的增加、更新以及删除。WindowManager 是一个接口，具体实现类为 WindowManagerImpl。<br>&nbsp;<br>但是 WMI 也只是个躯壳，实际的 View 树的增删改功能被委托给 WindowManagerGlobal 这个类。WMG 采用了单例模式。因此所有 Window 的 View 树都被交给它来管理。从 WMG 的 <code>addView ()</code> 中可以看到 WMG 为每一个 View 树都创建了一个 ViewRootImpl。因此这个 ViewRootImpl 才是最终打理整个 View 树的人。</li>
 </ol>
 <ol start="3">
-<li>相关类和方法</li>
+<li>相关类和方法<br><code>Window.java</code><br><code>PhoneWindow.java</code><br><code>WindowManager.java</code><br><code>ViewManager.java</code><br><code>WindowManagerImpl.java</code><br><code>WindowManagerGloal.java</code><br><code>ViewRootImpl.java</code></li>
 </ol>
-<ul>
-<li><code>Window.java</code> </li>
-<li><code>PhoneWindow.java</code></li>
-<li><code>WindowManager.java</code></li>
-<li><code>ViewManager.java</code></li>
-<li><code>WindowManagerImpl.java</code></li>
-<li><code>WindowManagerGloal.java</code></li>
-<li><code>ViewRootImpl.java</code></li>
-</ul>
 <h5 id="顶层设计"><a href="#顶层设计" class="headerlink" title="顶层设计"></a>顶层设计</h5><ol>
 <li><p>概念设计<br>界面，则是屏幕视图的抽象。最常用就是 Activity 和 Dialog。之前会疑惑为什么不把对话框作为为 View 树的一部分，而是设计为同 Activity 同一层级的界面级组件，Dialog 对话框也是一种基础 UI 元素呀？现在一想，或许是因为从视觉角度出发，Dialog 对话框总是显示在屏幕的中央，实际上可以看作没占满全屏的 Activity。 </p>
 </li>
