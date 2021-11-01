@@ -111,18 +111,22 @@
 
 
 
-<meta name="description" content="有几种阴影？阴影分为两种：外阴影（也称投影、drop shadow）和内阴影。外阴影的作用是使 UI 组件有悬浮的效果，而内阴影会使 UI 组件产生往内陷的视觉效果。内阴影一般不常用。因此下面讨论的均针对外阴影。 如何设计外阴影？以 Figma 为例。除了阴影颜色，Figma 提供 UI 设计师了 4 个属性来控制 UI 组件的阴影，分别是 x，y，blur 和 spread。x 和 y 分别控制">
+<meta name="description" content="Android GUI 系统的层次如下图所示：&amp;nbsp;@w&#x3D;400From 《深入理解 Android 内核设计思想》 1. 显示驱动Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 &#x2F;dev&#x2F;graphics&#x2F;fb* 或 &#x2F;dev&#x2F;fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。 2. HALAndroid 抽象了 HAL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【笔记】阴影">
-<meta property="og:url" content="http://example.com/2021/09/22/20210922-android-ui-shadow/index.html">
+<meta property="og:title" content="Someone‘s Notes">
+<meta property="og:url" content="http://example.com/2021/10/24/20211101-android-guifenceng/index.html">
 <meta property="og:site_name" content="Someone‘s Notes">
-<meta property="og:description" content="有几种阴影？阴影分为两种：外阴影（也称投影、drop shadow）和内阴影。外阴影的作用是使 UI 组件有悬浮的效果，而内阴影会使 UI 组件产生往内陷的视觉效果。内阴影一般不常用。因此下面讨论的均针对外阴影。 如何设计外阴影？以 Figma 为例。除了阴影颜色，Figma 提供 UI 设计师了 4 个属性来控制 UI 组件的阴影，分别是 x，y，blur 和 spread。x 和 y 分别控制">
+<meta property="og:description" content="Android GUI 系统的层次如下图所示：&amp;nbsp;@w&#x3D;400From 《深入理解 Android 内核设计思想》 1. 显示驱动Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 &#x2F;dev&#x2F;graphics&#x2F;fb* 或 &#x2F;dev&#x2F;fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。 2. HALAndroid 抽象了 HAL">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-09-22T12:24:47.000Z">
-<meta property="article:modified_time" content="2021-10-07T04:03:49.322Z">
+<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9">
+<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p10">
+<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p11">
+<meta property="article:published_time" content="2021-10-24T12:24:47.000Z">
+<meta property="article:modified_time" content="2021-11-01T07:51:24.200Z">
 <meta property="article:author" content="someone">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9">
 
 
 
@@ -152,13 +156,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/09/22/20210922-android-ui-shadow/"/>
+  <link rel="canonical" href="http://example.com/2021/10/24/20211101-android-guifenceng/"/>
 
 
 
 
 
-  <title>【笔记】阴影 | Someone‘s Notes</title>
+  <title> | Someone‘s Notes</title>
   
 
 
@@ -265,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/22/20210922-android-ui-shadow/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/20211101-android-guifenceng/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -282,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【笔记】阴影</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -294,8 +298,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-09-22T20:24:47+08:00">
-                2021-09-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-24T20:24:47+08:00">
+                2021-10-24
               </time>
             
 
@@ -332,21 +336,20 @@
       
 
       
-        <h4 id="有几种阴影？"><a href="#有几种阴影？" class="headerlink" title="有几种阴影？"></a>有几种阴影？</h4><p>阴影分为两种：外阴影（也称投影、drop shadow）和内阴影。外阴影的作用是使 UI 组件有悬浮的效果，而内阴影会使 UI 组件产生往内陷的视觉效果。内阴影一般不常用。因此下面讨论的均针对外阴影。</p>
-<h4 id="如何设计外阴影？"><a href="#如何设计外阴影？" class="headerlink" title="如何设计外阴影？"></a>如何设计外阴影？</h4><p>以 Figma 为例。除了阴影颜色，Figma 提供 UI 设计师了 4 个属性来控制 UI 组件的阴影，分别是 x，y，blur 和 spread。x 和 y 分别控制水平方向和垂直方向的偏移量；blur 控制阴影边缘的模糊程度，数值在 0 到 250 之间：blur 数值越大，边缘越模糊，反之越锐利；spread 控制阴影的大小：spread 越大，阴影面积越大，反之越小。</p>
-<p>由于 Android UI 体系提供控制阴影的属性在概念上没有和 Figma 等 UI 设计软件保持一致，因此阴影实现总是成为开发同学和设计同学 battle 的永恒话题。</p>
-<h4 id="如何实现阴影？"><a href="#如何实现阴影？" class="headerlink" title="如何实现阴影？"></a>如何实现阴影？</h4><p> Material Design 是谷歌官方的设计语言，简洁倒是简洁，好看也算好看，但体现不了设计同学的价值，因此并不受人待见。MD 定义了 Z 轴的概念，即屏幕内所有 UI 组件都有一个视觉高度 Elevation。Elevation 的值越大，表明其悬浮高度越高，View 底部阴影就越明显。</p>
-<p>Elevation 的实现方式有以下两种：</p>
-<ol>
-<li><p>设置 View 的 elevation 属性</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置阴影大小（Android API21 以上）</span></span><br><span class="line">view.elevation = <span class="number">5</span> <span class="comment">// 代码 </span></span><br><span class="line">android:elevation=<span class="string">&quot;5dp&quot;</span> <span class="comment">//xml 文件 </span></span><br></pre></td></tr></table></figure>
-<p>此外，还可以设置阴影颜色。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置阴影颜色 （Android API28 以上）</span></span><br><span class="line">android:outlineAmbientShadowColor=<span class="string">&quot;#e5353e&quot;</span></span><br><span class="line">android:outlineSpotShadowColor=<span class="string">&quot;#e5353e&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>MaterialShapeDrawable<br>MaterialShapeDrawable 是 Google 提供的实现 MD 风格 shape 的类。需要注意：因为 Elevation 的阴影是由父布局绘制的，因此需要设置 <code>android:clipChildren=&quot;false&quot;</code> 才可以生效。<br>&nbsp;<br>Elevation 出现之后，就成为了实现阴影最简便的方式。它的优点很明显：一实现简单；二实现的是 fake shadow，不占地方。缺点也很明显：一是 Elevation 仅能实现 blur 属性的效果，因此无法控制阴影的大小（spread）；二是无法采用透明度颜色：因为 Elevation 本质就是采用颜色的透明度来设置阴影边缘渐变效果 —— 从 28% 不透明度到 0% 不透明度。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">findViewById&lt;TextView&gt;(R.id.tvShadow).background = MaterialShapeDrawable ().apply &#123;</span><br><span class="line">    setTint (Color.parseColor (<span class="string">&quot;#44bebebe&quot;</span>)) <span class="comment">// 背景颜色 </span></span><br><span class="line">    paintStyle = Paint.Style.FILL <span class="comment">// 填充类型 </span></span><br><span class="line">    shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_ALWAYS <span class="comment">//fake shadow 模式 </span></span><br><span class="line">    initializeElevationOverlay (<span class="keyword">this</span><span class="symbol">@MainActivity</span>)</span><br><span class="line">    setShadowColor (Color.parseColor (<span class="string">&quot;#e5353e&quot;</span>)) <span class="comment">// 阴影颜色 透明度从 28%~0% 渐变 </span></span><br><span class="line">    elevation = <span class="number">25f</span> <span class="comment">// 视觉高度 </span></span><br><span class="line">    shadowVerticalOffset = <span class="number">10</span> <span class="comment">// 垂直偏移量 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>paint.setShadowLayer ()<br>自定义 Drawable 中设置画笔 Paint 的 setShadowLayer 方法。这种方式中 shadowRadius 属性比较接近设计软件中的 Blur 属性，并且支持设置带透明度的颜色。但缺点是绘制不是 fake shadow，故而需要占用 View 的背景空间。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//shadowRadius：阴影的模糊程度 </span></span><br><span class="line"><span class="comment">//shadowDx：水平偏移 </span></span><br><span class="line"><span class="comment">//shadowDy：垂直偏移 </span></span><br><span class="line"><span class="comment">//shadowColor：阴影颜色 </span></span><br><span class="line">paint.setShadowLayer (shadowRadius, shadowDx, shadowDy, shadowColor);</span><br></pre></td></tr></table></figure></li>
-</ol>
+        <p>Android GUI 系统的层次如下图所示：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9" alt="a1ca1488c1e207d798b530430361bb39.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em></p>
+<h5 id="1-显示驱动"><a href="#1-显示驱动" class="headerlink" title="1. 显示驱动"></a>1. 显示驱动</h5><p>Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 /dev/graphics/fb* 或 /dev/fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。</p>
+<h5 id="2-HAL"><a href="#2-HAL" class="headerlink" title="2. HAL"></a>2. HAL</h5><p>Android 抽象了 HAL 接口提供给硬件厂商。不同的硬件只要根据 HAL 接口提供不同的驱动程序即可。HAL 定义了两个设备：Gralloc 和 fb。</p>
+<ul>
+<li>fb：负责打开内核中的 framebuffer。</li>
+<li>Gralloc：用于管理 framebuffer 的分配和释放。</li>
+</ul>
+<h5 id="3-本地窗口：FramebufferNativeWindow-和-Surface"><a href="#3-本地窗口：FramebufferNativeWindow-和-Surface" class="headerlink" title="3. 本地窗口：FramebufferNativeWindow 和 Surface"></a>3. 本地窗口：FramebufferNativeWindow 和 Surface</h5><p>OpenGL ES 与平台无关，所以需要抽象了本地窗口的概念。不同的平台需要提供一个本地窗口给 OpenGL ES 绘制。在 Android 中，提供了两种本地窗口：面向 SurfaceFlinger 的 FramebufferNativeWindow + 面向应用程序的 Surface（Native 层）。<br>&nbsp;<br>FramebufferNativeWindow 使用了帧缓冲区，能够直接显示在屏幕上；而 Surface 使用了内存缓冲区。不同的应用程序拥有不同的 UI 窗口，每一种 UI 窗口对应了一个 Surface。为了是这些窗口能够按序展示出来，SurfaceFinger 的职责就是对这些 Surface 进行统一的图像混合操作，然后输出到自己的，直接面向屏幕的本地窗口上。如下图：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p10" alt="fcaad8bed95245ab5ab4ac3fa0baa5f5.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em><br>&nbsp;<br>因此 FramebufferNativeWindow（Window-1） 与 Surface（Window-2）都继承自 ANativeWindow。另外，在具体实现中，本地窗口 Surface 的绘图库实际上可以由其他图形库实现，如 Skia。Android 同时提供了 Skia（Canvas 软件渲染，但从 Android 8.0 开始， Skia 也可以开启硬件渲染模式，将 Canvas 的绘图操作直接转换为对 OpenGL ES 或者 Vulkan 调用）和 OpenGL ES（硬件渲染） 两种实现。**Java 层的 Surface 则是对本地窗口 Surface 的封装 **。</p>
+<h5 id="4-OpenGL-ES-与-EGL"><a href="#4-OpenGL-ES-与-EGL" class="headerlink" title="4. OpenGL ES 与 EGL"></a>4. OpenGL ES 与 EGL</h5><p>OpenGL ES 是一个适用于嵌入式设备的通用图形函数库。上层程序通过其提供的绘图 API 来在本地窗口绘制内容。而其中 EGL 的职责就是 OpenGL ES 配置本地窗口。事实上，EGL 是与本地窗口系统之间的一个接口层，是沟通二者的桥梁。<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p11" alt="05ed87ae4a3284c13bc89f5a823822d7.png">@w=400<br><em>From <a target="_blank" rel="noopener" href="https://juejin.cn/post/6877071747145793543">https://juejin.cn/post/6877071747145793543</a></em></p>
+<h5 id="5-SurfaceFlinger"><a href="#5-SurfaceFlinger" class="headerlink" title="5. SurfaceFlinger"></a>5. SurfaceFlinger</h5><p>SurfaceFlinger 职责是按 Z 轴混合所有 Surface 内存缓存区中的图像数据，生成合成图像数据，然后加载进 FramebufferNativeWindow 缓存区中，进而显示在屏幕上。</p>
+<blockquote>
+<p>无论开发者使用什么渲染 API，一切内容都会渲染到 Surface 上。Surface 表示缓冲区队列中的生产方，而缓冲区队列通常会被 SurfaceFlinger 消耗。在 Android 平台上创建的每个窗口都由 Surface 提供支持。所有被渲染的可见 Surface 都被 SurfaceFlinger 合成到屏幕。<br><em>From <a target="_blank" rel="noopener" href="https://source.android.google.cn/devices/graphics?hl=zh-cn">https://source.android.google.cn/devices/graphics?hl=zh-cn</a></em></p>
+</blockquote>
+<h5 id="7-理一理"><a href="#7-理一理" class="headerlink" title="7. 理一理"></a>7. 理一理</h5><p>理解源码的难度在于设计者可以从底层开始概念抽象、架构设计以及代码设计，而阅读者一般只能自顶层往下去一层一层的理解设计者的意图。所以有时候阅读代码时，还是需要多站在设计者的角度思考，理解或许可以更透彻些。</p>
 
       
     </div>
@@ -377,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/22/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2021/10/07/20211007-android-ui-viewsystem/" rel="next" title="【笔记】Android 视图体系设计">
+                <i class="fa fa-chevron-left"></i> 【笔记】Android 视图体系设计
               </a>
             
           </div>
@@ -386,10 +389,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/10/07/20211007-android-ui-viewsystem/" rel="prev" title="【笔记】Android 视图体系设计">
-                【笔记】Android 视图体系设计 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,7 +511,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%87%A0%E7%A7%8D%E9%98%B4%E5%BD%B1%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">有几种阴影？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E5%A4%96%E9%98%B4%E5%BD%B1%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何设计外阴影？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%98%B4%E5%BD%B1%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">如何实现阴影？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%98%BE%E7%A4%BA%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.</span> <span class="nav-text">1. 显示驱动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-HAL"><span class="nav-number">2.</span> <span class="nav-text">2. HAL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E7%AA%97%E5%8F%A3%EF%BC%9AFramebufferNativeWindow-%E5%92%8C-Surface"><span class="nav-number">3.</span> <span class="nav-text">3. 本地窗口：FramebufferNativeWindow 和 Surface</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-OpenGL-ES-%E4%B8%8E-EGL"><span class="nav-number">4.</span> <span class="nav-text">4. OpenGL ES 与 EGL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-SurfaceFlinger"><span class="nav-number">5.</span> <span class="nav-text">5. SurfaceFlinger</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-%E7%90%86%E4%B8%80%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">7. 理一理</span></a></li></ol></div>
             
 
           </div>

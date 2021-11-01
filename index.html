@@ -261,6 +261,139 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/20211101-android-guifenceng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Someone‘s Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/24/20211101-android-guifenceng/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-24T20:24:47+08:00">
+                2021-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Android GUI 系统的层次如下图所示：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9" alt="a1ca1488c1e207d798b530430361bb39.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em></p>
+<h5 id="1-显示驱动"><a href="#1-显示驱动" class="headerlink" title="1. 显示驱动"></a>1. 显示驱动</h5><p>Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 /dev/graphics/fb* 或 /dev/fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。</p>
+<h5 id="2-HAL"><a href="#2-HAL" class="headerlink" title="2. HAL"></a>2. HAL</h5><p>Android 抽象了 HAL 接口提供给硬件厂商。不同的硬件只要根据 HAL 接口提供不同的驱动程序即可。HAL 定义了两个设备：Gralloc 和 fb。</p>
+<ul>
+<li>fb：负责打开内核中的 framebuffer。</li>
+<li>Gralloc：用于管理 framebuffer 的分配和释放。</li>
+</ul>
+<h5 id="3-本地窗口：FramebufferNativeWindow-和-Surface"><a href="#3-本地窗口：FramebufferNativeWindow-和-Surface" class="headerlink" title="3. 本地窗口：FramebufferNativeWindow 和 Surface"></a>3. 本地窗口：FramebufferNativeWindow 和 Surface</h5><p>OpenGL ES 与平台无关，所以需要抽象了本地窗口的概念。不同的平台需要提供一个本地窗口给 OpenGL ES 绘制。在 Android 中，提供了两种本地窗口：面向 SurfaceFlinger 的 FramebufferNativeWindow + 面向应用程序的 Surface（Native 层）。<br>&nbsp;<br>FramebufferNativeWindow 使用了帧缓冲区，能够直接显示在屏幕上；而 Surface 使用了内存缓冲区。不同的应用程序拥有不同的 UI 窗口，每一种 UI 窗口对应了一个 Surface。为了是这些窗口能够按序展示出来，SurfaceFinger 的职责就是对这些 Surface 进行统一的图像混合操作，然后输出到自己的，直接面向屏幕的本地窗口上。如下图：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p10" alt="fcaad8bed95245ab5ab4ac3fa0baa5f5.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em><br>&nbsp;<br>因此 FramebufferNativeWindow（Window-1） 与 Surface（Window-2）都继承自 ANativeWindow。另外，在具体实现中，本地窗口 Surface 的绘图库实际上可以由其他图形库实现，如 Skia。Android 同时提供了 Skia（Canvas 软件渲染，但从 Android 8.0 开始， Skia 也可以开启硬件渲染模式，将 Canvas 的绘图操作直接转换为对 OpenGL ES 或者 Vulkan 调用）和 OpenGL ES（硬件渲染） 两种实现。**Java 层的 Surface 则是对本地窗口 Surface 的封装 **。</p>
+<h5 id="4-OpenGL-ES-与-EGL"><a href="#4-OpenGL-ES-与-EGL" class="headerlink" title="4. OpenGL ES 与 EGL"></a>4. OpenGL ES 与 EGL</h5><p>OpenGL ES 是一个适用于嵌入式设备的通用图形函数库。上层程序通过其提供的绘图 API 来在本地窗口绘制内容。而其中 EGL 的职责就是 OpenGL ES 配置本地窗口。事实上，EGL 是与本地窗口系统之间的一个接口层，是沟通二者的桥梁。<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p11" alt="05ed87ae4a3284c13bc89f5a823822d7.png">@w=400<br><em>From <a target="_blank" rel="noopener" href="https://juejin.cn/post/6877071747145793543">https://juejin.cn/post/6877071747145793543</a></em></p>
+<h5 id="5-SurfaceFlinger"><a href="#5-SurfaceFlinger" class="headerlink" title="5. SurfaceFlinger"></a>5. SurfaceFlinger</h5><p>SurfaceFlinger 职责是按 Z 轴混合所有 Surface 内存缓存区中的图像数据，生成合成图像数据，然后加载进 FramebufferNativeWindow 缓存区中，进而显示在屏幕上。</p>
+<blockquote>
+<p>无论开发者使用什么渲染 API，一切内容都会渲染到 Surface 上。Surface 表示缓冲区队列中的生产方，而缓冲区队列通常会被 SurfaceFlinger 消耗。在 Android 平台上创建的每个窗口都由 Surface 提供支持。所有被渲染的可见 Surface 都被 SurfaceFlinger 合成到屏幕。<br><em>From <a target="_blank" rel="noopener" href="https://source.android.google.cn/devices/graphics?hl=zh-cn">https://source.android.google.cn/devices/graphics?hl=zh-cn</a></em></p>
+</blockquote>
+<h5 id="7-理一理"><a href="#7-理一理" class="headerlink" title="7. 理一理"></a>7. 理一理</h5><p>理解源码的难度在于设计者可以从底层开始概念抽象、架构设计以及代码设计，而阅读者一般只能自顶层往下去一层一层的理解设计者的意图。所以有时候阅读代码时，还是需要多站在设计者的角度思考，理解或许可以更透彻些。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/20211007-android-ui-viewsystem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -710,7 +843,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
