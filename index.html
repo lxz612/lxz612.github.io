@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/20211101-android-guifenceng/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/10/20211110-codetech-kotlin-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -280,7 +280,135 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/24/20211101-android-guifenceng/" itemprop="url">【笔记】Android GUI 系统分层</a></h1>
+                <a class="post-title-link" href="/2021/11/10/20211110-codetech-kotlin-1/" itemprop="url">【笔记】Kotlin —— object 关键字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-10T10:24:47+08:00">
+                2021-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="1-对象声明"><a href="#1-对象声明" class="headerlink" title="1. 对象声明"></a>1. 对象声明</h5><p>kotlin 编译器会直接生成一个对象，并且在方法区的运行时常量池中生成该对象的引用，名字叫 INSTANCE。因此这个对象是一个全局单例对象。<br>&nbsp;<br>注：对应 Java，就是声明了一个静态的单例对象。这个对象引用的名字为 INSTANCE。只不过 Kotlin 中把类声明和创建对象结合起来。</p>
+<h5 id="2-伴生对象"><a href="#2-伴生对象" class="headerlink" title="2. 伴生对象"></a>2. 伴生对象</h5><p>类中声明的伴生对象实际上就是一个常规对象，只不过这个对象全局唯一的，也是一个单例对象。因此这个对象存放在堆中。该对象的引用则放到了常量池中，引用的名字为：类名.Companion。所以 Kotin 和 Java 都可以通过这个引用拿到这一个全局单例对象。<br>&nbsp;<br>值得注意的是：在 Java 的概念体系中，这个引用称之为一个静态字段。但由于 Kotlin 没有 “静态” 这一概念，所以该引用 kotlin 概念体系中则称之为名字为 “类名.Companion” 的编译器常量（const 修饰的 val）。Java 的静态字段和 Kotlin 的编译器常量均存储在 JVM 方法区的常量池中。<br>&nbsp;<br>但是为了契合 Java 的使用习惯，Kotlin 提供了 @JvmField 和 @JvmStatic 两个注解，使得编译器在生成该对象的同时，也生成了对应的静态变量（常量）和静态方法，以方便在 Java 调用。<br>&nbsp;<br>因此即便不使用这两个注解，Java 也可以通过 “类名.Companion” 的方式获取该对象。<br>&nbsp;</p>
+<h5 id="3-对象表达式（声明匿名内部类）"><a href="#3-对象表达式（声明匿名内部类）" class="headerlink" title="3. 对象表达式（声明匿名内部类）"></a>3. 对象表达式（声明匿名内部类）</h5><p>object 声明的匿名内部类并不是单例的。比如，在 Kotlin1.0 中，每个 lambda 表示式都会被编译为一个匿名内部类，除非是一个内联类型的 lambda。</p>
+<h5 id="4-拓展：内部类（广义）"><a href="#4-拓展：内部类（广义）" class="headerlink" title="4. 拓展：内部类（广义）"></a>4. 拓展：内部类（广义）</h5><p>当一个类（类 A）被定义在另一个类（类 A 的外部类）中时，类 A 有两种情况：存储持有外部类的引用或者不存储持有外部类的引用。<br>&nbsp;<br>在 Java 概念体系中，类 A 为嵌套类。其中：<br>存储外部类引用的类 A 则为非静态嵌套类，也称内部类。内部类又分为三种：成员内部类、局部内部类（定义在方法中的类，实际开发很少用！）、匿名内部类。<br>不存储外部类引用的类 A 则为静态嵌套类，也称静态内部类。<br>&nbsp;<br>在 Kotlin 概念体系中，概念分类较为简单。不存储外部类引用的类 A 直接称为嵌套类，存储外部类引用的类 A 称为内部类。其中内部类也分为成员内部类、局部内部类和匿名内部类。<br>&nbsp;<br>注意：</p>
+<ul>
+<li>Kotlin 中默认声明的嵌套类，内部类（成员内部类）需要特别用 inner 关键字标识。</li>
+<li>在 Java8 中，虽然函数式接口的匿名内部类与 lambda 表达式在功能上是等价的，但后者并不是前者的简写模式，因为两者的在 JVM 中实现原理不一样。“new + 接口名” 声明的匿名内部类，编译时会生成一个额外的 class 文件；而 lambda 表达式则不会生成该文件，而是在编译时被封装为主类的一个私有方法，可通过 invokedynamic 指令进行调用。因此 lambda 表达式的 this 指向的是外部的作用域。</li>
+<li>在 Kotlin1.0 中，为了兼容 Java 8 之前的版本，每个 lambda 表示式都会被编译为一个匿名类，除非是一个内联的 lambda。不过在 kotlin 1.1 版本，已经支持生成 Java 8 字节码。<br>&nbsp;</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/20211024-android-guifenceng/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Someone‘s Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/24/20211024-android-guifenceng/" itemprop="url">【笔记】Android GUI 系统分层</a></h1>
         
 
         <div class="post-meta">
@@ -843,7 +971,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -856,7 +984,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
