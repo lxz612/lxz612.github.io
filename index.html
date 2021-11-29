@@ -261,6 +261,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/20211129-codetech-kotlin-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Someone‘s Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/11/29/20211129-codetech-kotlin-2/" itemprop="url">【笔记】Kotlin —— 闭包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-29T15:24:47+08:00">
+                2021-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="闭包定义"><a href="#闭包定义" class="headerlink" title="闭包定义"></a>闭包定义</h5><p>一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域（外层函数的变量）。</p>
+<h5 id="Java-8-之前的闭包"><a href="#Java-8-之前的闭包" class="headerlink" title="Java 8 之前的闭包"></a>Java 8 之前的闭包</h5><p>Java 没有函数类型，不能直接声明一个函数变量。函数（一小段代码块）的传递只能通过先声明一个函数式接口（单抽象方法接口，SAM 接口），然后创建实现该接口的匿名内部类来实现，例如回调函数的传递。<br>因此，Java 闭包实现是通过匿名内部类来实现的，Java 的匿名内部类对象可以引用外部函数的变量（称为 ** 自由变量 **）。但这种方式实现的 Java 闭包实际上是一种 “伪” 闭包，引用的变量只能是 final 类型，只能使用不能修改。这是因为：在调用匿名内部类的接口函数时，外部函数的调用已经结束，函数栈帧已经被回收，因此匿名内部类接口函数中 ** 引用的只是外部函数变量的一个副本 **。</p>
+<h5 id="Java-8-的闭包"><a href="#Java-8-的闭包" class="headerlink" title="Java 8 的闭包"></a>Java 8 的闭包</h5><p>Java 8 引入了 lambda 表达式来替代函数式接口的匿名内部类。虽然 lambda 表示式中可以引用没有非 final 的自由变量，但编译器依然不允许在 lambda 表示式内部修改自由变量的值。（哭笑不得…）<br>&nbsp;<br>注：如果需要在匿名内部类中或者 lambda 表示式中引用非 final 的自由变量并且可以修改它，有两种方式：一是声明一个单元素数组；二是创建一个包装类的实例，其中存储待改变值的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ref</span>&lt;<span class="title">T</span>&gt;(<span class="title">val</span> <span class="title">value</span>:<span class="title">T</span>)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] counter = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">Ref counter = <span class="keyword">new</span> Ref (<span class="number">0</span>);</span><br><span class="line">view.setOnClickListener (v -&gt; &#123;</span><br><span class="line">    counter.value++</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="Kotlin-的闭包"><a href="#Kotlin-的闭包" class="headerlink" title="Kotlin 的闭包"></a>Kotlin 的闭包</h5><p>Kotlin 有函数类型，因此可以通过 lambda 表示式直接声明一个函数类型变量。并且内部函数可以直接访问外部函数的自由变量，并没有 Java 那样限制条件（变量必须是 final 的）。但本质上，Kotlin 闭包的实现，在引用 final 变量（val 变量）时，与 Java 做法一样，也是将变量值拷贝下来和函数一起存储。而在引用非 final 变量（var 变量）时，该变量的值会被作为一个 Ref 类的实例存储在堆中，因此可以在 lambda 中被修改，即：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ref</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> value:T)</span><br><span class="line"><span class="keyword">val</span> counter = Ref (<span class="number">0</span>)</span><br><span class="line"><span class="keyword">val</span> inc = &#123;counter.value++&#125;</span><br></pre></td></tr></table></figure>
+<p>不过需要注意的时，在 **lambda 异步执行 ** 的情况（如事件处理器）下，对自由变量的修改只会在 lambda 执行的时候有效。</p>
+<h5 id="Javascript-的闭包"><a href="#Javascript-的闭包" class="headerlink" title="Javascript 的闭包"></a>Javascript 的闭包</h5><p>Javascript 中，函数是第一公民。因此在 JavaScript 中，每当创建一个函数，闭包就会被同时创建出来。</p>
+<h5 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h5><p>Whatever，在 lambda 表示式中修改自由变量是一个坏习惯！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/10/20211110-codetech-kotlin-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -971,7 +1100,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

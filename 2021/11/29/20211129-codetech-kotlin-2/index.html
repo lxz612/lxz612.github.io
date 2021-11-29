@@ -100,7 +100,7 @@
 
 
 
-  <meta name="keywords" content="Android," />
+  <meta name="keywords" content="Kotlin," />
 
 
 
@@ -111,22 +111,18 @@
 
 
 
-<meta name="description" content="Android GUI 系统的层次如下图所示：&amp;nbsp;@w&#x3D;400From 《深入理解 Android 内核设计思想》 1. 显示驱动Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 &#x2F;dev&#x2F;graphics&#x2F;fb* 或 &#x2F;dev&#x2F;fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。 2. HALAndroid 抽象了 HAL">
+<meta name="description" content="闭包定义一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域（外层函数的变量）。 Java 8 之前的闭包Java 没有函数类型，不能直接声明一个函数变量。函数（一小段代码块）的传递只能通过先声明一个函数式接口（单抽象方法接口，SAM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【笔记】Android GUI 系统分层">
-<meta property="og:url" content="http://example.com/2021/10/24/20211024-android-guifenceng/index.html">
+<meta property="og:title" content="【笔记】Kotlin —— 闭包">
+<meta property="og:url" content="http://example.com/2021/11/29/20211129-codetech-kotlin-2/index.html">
 <meta property="og:site_name" content="Someone‘s Notes">
-<meta property="og:description" content="Android GUI 系统的层次如下图所示：&amp;nbsp;@w&#x3D;400From 《深入理解 Android 内核设计思想》 1. 显示驱动Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 &#x2F;dev&#x2F;graphics&#x2F;fb* 或 &#x2F;dev&#x2F;fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。 2. HALAndroid 抽象了 HAL">
+<meta property="og:description" content="闭包定义一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域（外层函数的变量）。 Java 8 之前的闭包Java 没有函数类型，不能直接声明一个函数变量。函数（一小段代码块）的传递只能通过先声明一个函数式接口（单抽象方法接口，SAM">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9">
-<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p10">
-<meta property="og:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p11">
-<meta property="article:published_time" content="2021-10-24T12:24:47.000Z">
-<meta property="article:modified_time" content="2021-11-01T08:15:52.560Z">
+<meta property="article:published_time" content="2021-11-29T07:24:47.000Z">
+<meta property="article:modified_time" content="2021-11-22T07:15:49.433Z">
 <meta property="article:author" content="someone">
-<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9">
 
 
 
@@ -156,13 +152,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/10/24/20211024-android-guifenceng/"/>
+  <link rel="canonical" href="http://example.com/2021/11/29/20211129-codetech-kotlin-2/"/>
 
 
 
 
 
-  <title>【笔记】Android GUI 系统分层 | Someone‘s Notes</title>
+  <title>【笔记】Kotlin —— 闭包 | Someone‘s Notes</title>
   
 
 
@@ -269,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/24/20211024-android-guifenceng/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/20211129-codetech-kotlin-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -286,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【笔记】Android GUI 系统分层</h1>
+          <h1 class="post-title" itemprop="name headline">【笔记】Kotlin —— 闭包</h1>
         
 
         <div class="post-meta">
@@ -298,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-10-24T20:24:47+08:00">
-                2021-10-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-29T15:24:47+08:00">
+                2021-11-29
               </time>
             
 
@@ -336,20 +332,16 @@
       
 
       
-        <p>Android GUI 系统的层次如下图所示：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p9" alt="a1ca1488c1e207d798b530430361bb39.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em></p>
-<h5 id="1-显示驱动"><a href="#1-显示驱动" class="headerlink" title="1. 显示驱动"></a>1. 显示驱动</h5><p>Linux 内核提供统一的 framebuffer（帧缓冲区）显示驱动。设备节点是 /dev/graphics/fb* 或 /dev/fb* ，其中 fb0 表示第一个 Monitor，即系统实现只用到了一个显示屏。</p>
-<h5 id="2-HAL"><a href="#2-HAL" class="headerlink" title="2. HAL"></a>2. HAL</h5><p>Android 抽象了 HAL 接口提供给硬件厂商。不同的硬件只要根据 HAL 接口提供不同的驱动程序即可。HAL 定义了两个设备：Gralloc 和 fb。</p>
-<ul>
-<li>fb：负责打开内核中的 framebuffer。</li>
-<li>Gralloc：用于管理 framebuffer 的分配和释放。</li>
-</ul>
-<h5 id="3-本地窗口：FramebufferNativeWindow-和-Surface"><a href="#3-本地窗口：FramebufferNativeWindow-和-Surface" class="headerlink" title="3. 本地窗口：FramebufferNativeWindow 和 Surface"></a>3. 本地窗口：FramebufferNativeWindow 和 Surface</h5><p>OpenGL ES 与平台无关，所以需要抽象了本地窗口的概念。不同的平台需要提供一个本地窗口给 OpenGL ES 绘制。在 Android 中，提供了两种本地窗口：面向 SurfaceFlinger 的 FramebufferNativeWindow + 面向应用程序的 Surface（Native 层）。<br>&nbsp;<br>FramebufferNativeWindow 使用了帧缓冲区，能够直接显示在屏幕上；而 Surface 使用了内存缓冲区。不同的应用程序拥有不同的 UI 窗口，每一种 UI 窗口对应了一个 Surface。为了是这些窗口能够按序展示出来，SurfaceFinger 的职责就是对这些 Surface 进行统一的图像混合操作，然后输出到自己的，直接面向屏幕的本地窗口上。如下图：<br>&nbsp;<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p10" alt="fcaad8bed95245ab5ab4ac3fa0baa5f5.png">@w=400<br><em>From 《深入理解 Android 内核设计思想》</em><br>&nbsp;<br>因此 FramebufferNativeWindow（Window-1） 与 Surface（Window-2）都继承自 ANativeWindow。另外，在具体实现中，本地窗口 Surface 的绘图库实际上可以由其他图形库实现，如 Skia。Android 同时提供了 Skia（Canvas 软件渲染，但从 Android 8.0 开始， Skia 也可以开启硬件渲染模式，将 Canvas 的绘图操作直接转换为对 OpenGL ES 或者 Vulkan 调用）和 OpenGL ES（硬件渲染） 两种实现。**Java 层的 Surface 则是对本地窗口 Surface 的封装 **。</p>
-<h5 id="4-OpenGL-ES-与-EGL"><a href="#4-OpenGL-ES-与-EGL" class="headerlink" title="4. OpenGL ES 与 EGL"></a>4. OpenGL ES 与 EGL</h5><p>OpenGL ES 是一个适用于嵌入式设备的通用图形函数库。上层程序通过其提供的绘图 API 来在本地窗口绘制内容。而其中 EGL 的职责就是 OpenGL ES 配置本地窗口。事实上，EGL 是与本地窗口系统之间的一个接口层，是沟通二者的桥梁。<br><img src="evernotecid://FDAA17D6-E5AA-40B2-8D31-AAAB4BE1E3D2/appyinxiangcom/11416218/ENResource/p11" alt="05ed87ae4a3284c13bc89f5a823822d7.png">@w=400<br><em>From <a target="_blank" rel="noopener" href="https://juejin.cn/post/6877071747145793543">https://juejin.cn/post/6877071747145793543</a></em></p>
-<h5 id="5-SurfaceFlinger"><a href="#5-SurfaceFlinger" class="headerlink" title="5. SurfaceFlinger"></a>5. SurfaceFlinger</h5><p>SurfaceFlinger 职责是按 Z 轴混合所有 Surface 内存缓存区中的图像数据，生成合成图像数据，然后加载进 FramebufferNativeWindow 缓存区中，进而显示在屏幕上。</p>
-<blockquote>
-<p>无论开发者使用什么渲染 API，一切内容都会渲染到 Surface 上。Surface 表示缓冲区队列中的生产方，而缓冲区队列通常会被 SurfaceFlinger 消耗。在 Android 平台上创建的每个窗口都由 Surface 提供支持。所有被渲染的可见 Surface 都被 SurfaceFlinger 合成到屏幕。<br><em>From <a target="_blank" rel="noopener" href="https://source.android.google.cn/devices/graphics?hl=zh-cn">https://source.android.google.cn/devices/graphics?hl=zh-cn</a></em></p>
-</blockquote>
-<h5 id="7-理一理"><a href="#7-理一理" class="headerlink" title="7. 理一理"></a>7. 理一理</h5><p>理解源码的难度在于设计者可以从底层开始概念抽象、架构设计以及代码设计，而阅读者一般只能自顶层往下去一层一层的理解设计者的意图。所以有时候阅读代码时，还是需要多站在设计者的角度思考，理解或许可以更透彻些。</p>
+        <h5 id="闭包定义"><a href="#闭包定义" class="headerlink" title="闭包定义"></a>闭包定义</h5><p>一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域（外层函数的变量）。</p>
+<h5 id="Java-8-之前的闭包"><a href="#Java-8-之前的闭包" class="headerlink" title="Java 8 之前的闭包"></a>Java 8 之前的闭包</h5><p>Java 没有函数类型，不能直接声明一个函数变量。函数（一小段代码块）的传递只能通过先声明一个函数式接口（单抽象方法接口，SAM 接口），然后创建实现该接口的匿名内部类来实现，例如回调函数的传递。<br>因此，Java 闭包实现是通过匿名内部类来实现的，Java 的匿名内部类对象可以引用外部函数的变量（称为 ** 自由变量 **）。但这种方式实现的 Java 闭包实际上是一种 “伪” 闭包，引用的变量只能是 final 类型，只能使用不能修改。这是因为：在调用匿名内部类的接口函数时，外部函数的调用已经结束，函数栈帧已经被回收，因此匿名内部类接口函数中 ** 引用的只是外部函数变量的一个副本 **。</p>
+<h5 id="Java-8-的闭包"><a href="#Java-8-的闭包" class="headerlink" title="Java 8 的闭包"></a>Java 8 的闭包</h5><p>Java 8 引入了 lambda 表达式来替代函数式接口的匿名内部类。虽然 lambda 表示式中可以引用没有非 final 的自由变量，但编译器依然不允许在 lambda 表示式内部修改自由变量的值。（哭笑不得…）<br>&nbsp;<br>注：如果需要在匿名内部类中或者 lambda 表示式中引用非 final 的自由变量并且可以修改它，有两种方式：一是声明一个单元素数组；二是创建一个包装类的实例，其中存储待改变值的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ref</span>&lt;<span class="title">T</span>&gt;(<span class="title">val</span> <span class="title">value</span>:<span class="title">T</span>)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] counter = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">Ref counter = <span class="keyword">new</span> Ref (<span class="number">0</span>);</span><br><span class="line">view.setOnClickListener (v -&gt; &#123;</span><br><span class="line">    counter.value++</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="Kotlin-的闭包"><a href="#Kotlin-的闭包" class="headerlink" title="Kotlin 的闭包"></a>Kotlin 的闭包</h5><p>Kotlin 有函数类型，因此可以通过 lambda 表示式直接声明一个函数类型变量。并且内部函数可以直接访问外部函数的自由变量，并没有 Java 那样限制条件（变量必须是 final 的）。但本质上，Kotlin 闭包的实现，在引用 final 变量（val 变量）时，与 Java 做法一样，也是将变量值拷贝下来和函数一起存储。而在引用非 final 变量（var 变量）时，该变量的值会被作为一个 Ref 类的实例存储在堆中，因此可以在 lambda 中被修改，即：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ref</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> value:T)</span><br><span class="line"><span class="keyword">val</span> counter = Ref (<span class="number">0</span>)</span><br><span class="line"><span class="keyword">val</span> inc = &#123;counter.value++&#125;</span><br></pre></td></tr></table></figure>
+<p>不过需要注意的时，在 **lambda 异步执行 ** 的情况（如事件处理器）下，对自由变量的修改只会在 lambda 执行的时候有效。</p>
+<h5 id="Javascript-的闭包"><a href="#Javascript-的闭包" class="headerlink" title="Javascript 的闭包"></a>Javascript 的闭包</h5><p>Javascript 中，函数是第一公民。因此在 JavaScript 中，每当创建一个函数，闭包就会被同时创建出来。</p>
+<h5 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h5><p>Whatever，在 lambda 表示式中修改自由变量是一个坏习惯！</p>
 
       
     </div>
@@ -367,7 +359,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
+            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
           
         </div>
       
@@ -380,8 +372,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/10/07/20211007-android-ui-viewsystem/" rel="next" title="【笔记】Android 视图体系设计">
-                <i class="fa fa-chevron-left"></i> 【笔记】Android 视图体系设计
+              <a href="/2021/11/10/20211110-codetech-kotlin-1/" rel="next" title="【笔记】Kotlin —— object 关键字">
+                <i class="fa fa-chevron-left"></i> 【笔记】Kotlin —— object 关键字
               </a>
             
           </div>
@@ -389,10 +381,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/11/10/20211110-codetech-kotlin-1/" rel="prev" title="【笔记】Kotlin —— object 关键字">
-                【笔记】Kotlin —— object 关键字 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -515,7 +503,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E6%98%BE%E7%A4%BA%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.</span> <span class="nav-text">1. 显示驱动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-HAL"><span class="nav-number">2.</span> <span class="nav-text">2. HAL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E6%9C%AC%E5%9C%B0%E7%AA%97%E5%8F%A3%EF%BC%9AFramebufferNativeWindow-%E5%92%8C-Surface"><span class="nav-number">3.</span> <span class="nav-text">3. 本地窗口：FramebufferNativeWindow 和 Surface</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-OpenGL-ES-%E4%B8%8E-EGL"><span class="nav-number">4.</span> <span class="nav-text">4. OpenGL ES 与 EGL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-SurfaceFlinger"><span class="nav-number">5.</span> <span class="nav-text">5. SurfaceFlinger</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-%E7%90%86%E4%B8%80%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">7. 理一理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">闭包定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java-8-%E4%B9%8B%E5%89%8D%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">Java 8 之前的闭包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java-8-%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">Java 8 的闭包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kotlin-%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">Kotlin 的闭包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Javascript-%E7%9A%84%E9%97%AD%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">Javascript 的闭包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Attention"><span class="nav-number">6.</span> <span class="nav-text">Attention</span></a></li></ol></div>
             
 
           </div>
